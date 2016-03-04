@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Underscore Test Suite</title>
+  <link rel="stylesheet" href="vendor/qunit.css" type="text/css" media="screen">
+</head>
+<body>
+  <div id="qunit"></div>
+  <div id="exports" style="display: none"></div>
+
+  <script src= "jalangiRuntime/jquery-2.1.3.min.js"> </script>
+
+  <script src= "jalangiRuntime/esotope.js"> </script>
+  <script src= "jalangiRuntime/acorn.js"> </script>
+  <script src= "jalangiRuntime/Constants.js"> </script>
+  <script src= "jalangiRuntime/Config.js"> </script>
+  <script src= "jalangiRuntime/astUtil.js"> </script>
+  <script src= "jalangiRuntime/esnstrument.js"> </script>
+  <script src= "jalangiRuntime/iidToLocation.js"> </script>
+  <script src= "jalangiRuntime/analysis.js"> </script>
+  <script>J$.initParams = {};</script>
+
+  <script src= "jalangiRuntime/ChainedAnalysesNoCheck.js"> </script>
+<!-- DLint Analysis-->
+  <script src= "jalangi2analyses/src/js/analyses/utils/PreAnalysis.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/utils/Utils.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/utils/document.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/utils/RuntimeDB.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/utils/levenshtein.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/CheckNaN.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/ConcatUndefinedToString.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/NonObjectPrototype.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/SetFieldOfPrimitive.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/OverFlowUnderFlow.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/StyleMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/ToStringGivesNonString.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/UndefinedOffset.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/NoEffectOperation.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/AddEnumerablePropertyToObject.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/ConstructWrappedPrimitive2.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/FunctionToString.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/ShadowProtoProperty.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/NonNumericArrayProperty.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/OverwrittenPrototype.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/DelayedCodeString.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/GlobalThis.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/CompareFunctionWithPrimitives.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/InconsistentConstructor.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/FunctionCalledWithMoreArguments.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/IllegalUseOfArgumentsVariable.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/ForInArray.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/DoubleEvaluation.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/InconsistentNewCallPrefix.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/UncountableSpaceInRegexp.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/EmptyClassInRegexp.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/UseArrObjConstrWithoutArg.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/MissRadixArgInParseNum.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/FloatNumberEqualityComparison.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/HTMLNodeFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/DocumentFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/StringFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/RegExpFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/NumberFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/ObjectFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/GlobalFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/ArrayFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/dlint/jsBuiltinFunctionChecker/DateFunctionsMisuse.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/utils/PostAnalysis.js"> </script>
+
+
+<!-- JitProf Analysis
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/utils/Utils.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/utils/RuntimeDB.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/TrackHiddenClass.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/AccessUndefArrayElem.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/SwitchArrayType.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/BinaryOpOnUndef.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/NonContiguousArray.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/PolymorphicFunCall.js"> </script>
+  <script src= "jalangi2analyses/src/js/analyses/jitprof/TypedArray.js"> </script>
+-->
+  <script src="vendor/qunit.js"></script>
+  <script src="vendor/qunit-extras.js"></script>
+<script src="qunit-setup.js"></script>
+
+  <script src="source_instrumented.js"></script>
+
+
+  <script src="collections.js"></script>
+  <script src="objects.js"></script>
+<!--  <script src="arrays.js"></script>
+  <script src="functions.js"></script>
+  <script src="cross-document.js"></script>
+  <script src="utility.js"></script>
+  <script src="chaining.js"></script>
+-->
+  <script src="jalangiRuntime/terminate.js"></script>
+  <h3>Analysis Results:</h3>
+
+  <table border = "1">
+    <tr>
+      <td colspan = "3">
+        <pre id="res"> </pre>
+      </td>
+    </tr>
+  </table>
+
+</body>
+</html>
