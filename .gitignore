@@ -1,0 +1,6 @@
+.idea
+*~
+*.swp
+node_modules
+/evaluation/results/*
+/output/*
