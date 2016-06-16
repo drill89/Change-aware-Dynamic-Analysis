@@ -17,7 +17,7 @@
 
         var previousCommitDir = baseDir + "/benchmarks/" + benchmark.name + "/" + previousCommit;
         var commitDir = baseDir + "/benchmarks/" + benchmark.name + "/" + commit;
-        var indexFile = "index_" + executionMode + "_" + analysis + ".html";
+        var indexFile = "GENERATED_index_" + executionMode + "_" + analysis + ".html";
 
         // compute dependences
         if (executionMode === "changeAwareAnalysis") {
@@ -43,13 +43,22 @@
         });
 
         var server = app.listen(3000, function() {
-            console.log('Server for in-browser tests listening on port 3000');
+            //console.log('Server for in-browser tests listening on port 3000');
         });
 
         var browser;
         setTimeout(function() {
-            browser = childProcess.spawn("chromium-browser", ["--disable-web-security", "http://localhost:3000"]);
+            // check which browser is available and open it
+            var browserCmd = hasCommand("chromium-browser") ? "chromium-browser" : "google-chrome";
+            browser = childProcess.spawn(browserCmd, ["--disable-web-security", "http://localhost:3000"]);
         });
+    }
+
+    function hasCommand(cmd) {
+        var cp = require("child_process");
+        var result = cp.execSync("whereis " + cmd, {encoding:"utf8"});
+        var regExp = new RegExp(cmd, "g");
+        return result.match(regExp).length > 1;
     }
 
     function createExperiments(benchmark, nextExperimentCallback) {
@@ -60,7 +69,7 @@
             var commit = benchmark.commits[i];
             var previousCommit = i > 0 ? benchmark.commits[i - 1] : undefined;
 
-            var analyses = ["dlint"/*, "jitprof"*/]; // TODO: also do it for jitprof
+            var analyses = ["dlint", "jitprof"];
             // perform change-aware analysis only if there's a previous commit
             var executionModes = previousCommit === undefined ? ["noAnalysis", "fullAnalysis"] : ["noAnalysis", "fullAnalysis", "changeAwareAnalysis"];
 

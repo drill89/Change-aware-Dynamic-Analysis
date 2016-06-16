@@ -8,4 +8,8 @@
         equal(bar(), true);
     });
 
+    test('Testing baz', function () {
+        equal(baz(), true);
+    });
+
 }());

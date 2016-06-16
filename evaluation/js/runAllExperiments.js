@@ -53,6 +53,7 @@
     }
 
     // schedule other experiments
+    // TODO: call unchangedLinesAnalyzer for each pair of consecutive commits
 
     // start ResultSummarizer server
     var evalServer = evalServer.startServer();

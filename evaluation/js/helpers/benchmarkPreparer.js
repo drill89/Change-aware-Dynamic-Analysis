@@ -22,39 +22,39 @@
 
             // index file without any analysis
             var indexNoAnalysis = template.replace("<!-- LIB -->", "<script src='" + benchmark.libFile + "'></script>");
-            fs.writeFileSync(dir + "/index_noAnalysis__.html", indexNoAnalysis);
+            fs.writeFileSync(dir + "/GENERATED_index_noAnalysis__.html", indexNoAnalysis);
 
             // index file for full analysis with DLint
-            var jsFullDLint = "<script src='js/evalClient_fullAnalysis_dlint.js'></script>";
+            var jsFullDLint = "<script src='GENERATED_js/evalClient_fullAnalysis_dlint.js'></script>";
             var indexFullDLint = template
                   .replace("<!-- PREALL -->", jqueryFragment + "\n\n" + jsFullDLint + "\n\n" + jalangiFragment + "\n\n" + dlintFragment)
                   .replace("<!-- LIB -->", "<script src='" + benchmark.instrumentedLibFile + "'></script>")
                   .replace("<!-- POSTTESTS -->", finalizeFragment);
-            fs.writeFileSync(dir + "/index_fullAnalysis_dlint.html", indexFullDLint);
+            fs.writeFileSync(dir + "/GENERATED_index_fullAnalysis_dlint.html", indexFullDLint);
 
             // index file for full analysis with JITProf
-            var jsFullJITProf = "<script src='js/evalClient_fullAnalysis_jitprof.js'></script>";
+            var jsFullJITProf = "<script src='GENERATED_js/evalClient_fullAnalysis_jitprof.js'></script>";
             var indexFullJITProf = template
                   .replace("<!-- PREALL -->", jqueryFragment + "\n\n" + jsFullJITProf + "\n\n" + jalangiFragment + "\n\n" + jitprofFragment)
                   .replace("<!-- LIB -->", "<script src='" + benchmark.instrumentedLibFile + "'></script>")
                   .replace("<!-- POSTTESTS -->", finalizeFragment);
-            fs.writeFileSync(dir + "/index_fullAnalysis_jitprof.html", indexFullJITProf);
+            fs.writeFileSync(dir + "/GENERATED_index_fullAnalysis_jitprof.html", indexFullJITProf);
 
             // index file for change-aware analysis with DLint
-            var jsChangeAwareDLint = "<script src='js/evalClient_changeAwareAnalysis_dlint.js'></script>";
+            var jsChangeAwareDLint = "<script src='GENERATED_js/evalClient_changeAwareAnalysis_dlint.js'></script>";
             var indexChangeAwareDLint = template
                   .replace("<!-- PREALL -->", jqueryFragment + "\n\n" + jsChangeAwareDLint + "\n\n" + jalangiFragment + "\n\n" + dlintFragment)
                   .replace("<!-- LIB -->", "<script src='" + benchmark.instrumentedLibFile + "'></script>")
                   .replace("<!-- POSTTESTS -->", finalizeFragment);
-            fs.writeFileSync(dir + "/index_changeAwareAnalysis_dlint.html", indexChangeAwareDLint);
+            fs.writeFileSync(dir + "/GENERATED_index_changeAwareAnalysis_dlint.html", indexChangeAwareDLint);
 
             // index file for change-aware analysis with JITProf
-            var jsChangeAwareJITProf = "<script src='js/evalClient_changeAwareAnalysis_jitprof.js'></script>";
+            var jsChangeAwareJITProf = "<script src='GENERATED_js/evalClient_changeAwareAnalysis_jitprof.js'></script>";
             var indexChangeAwareJITProf = template
                   .replace("<!-- PREALL -->", jqueryFragment + "\n\n" + jsChangeAwareJITProf + "\n\n" + jalangiFragment + "\n\n" + jitprofFragment)
                   .replace("<!-- LIB -->", "<script src='" + benchmark.instrumentedLibFile + "'></script>")
                   .replace("<!-- POSTTESTS -->", finalizeFragment);
-            fs.writeFileSync(dir + "/index_changeAwareAnalysis_jitprof.html", indexChangeAwareJITProf);
+            fs.writeFileSync(dir + "/GENERATED_index_changeAwareAnalysis_jitprof.html", indexChangeAwareJITProf);
         }
     }
 
@@ -75,7 +75,7 @@
             var template = fs.readFileSync(baseDir + "/evaluation/js/helpers/evalClient.js", {encoding:"utf8"});
 
             // create 'js' directory (if not yet there)
-            var jsDir = dir + "/js";
+            var jsDir = dir + "/GENERATED_js";
             try {
                 fs.accessSync(jsDir, fs.F_OK);
             } catch (e) {
@@ -108,8 +108,8 @@
         for (var i = 0; i < benchmark.commits.length; i++) {
             var commit = benchmark.commits[i];
             var commitDir = baseDir + "/benchmarks/" + benchmark.name + "/" + commit;
-            var jalangiForCommitDir = commitDir + "/jalangiRuntime";
-            var jalangi2analysesForCommitDir = commitDir + "/jalangi2analyses";
+            var jalangiForCommitDir = commitDir + "/GENERATED_jalangiRuntime";
+            var jalangi2analysesForCommitDir = commitDir + "/GENERATED_jalangi2analyses";
             // create symlink for jalangiRuntime (if not yet there)
             try {
                 fs.accessSync(jalangiForCommitDir, fs.F_OK);

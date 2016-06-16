@@ -10,8 +10,8 @@
         this.commits = commits;
         this.indexTemplate = indexTemplate;
         this.libFile = libFile;
-        this.instrumentedLibFile = libFile.replace(/.js$/, "_instrumented.js");
-        this.instrumentedLibJSONFile = libFile.replace(/.js$/, "_instrumented.json");
+        this.instrumentedLibFile = "GENERATED_" + libFile.replace(/.js$/, "_instrumented.js");
+        this.instrumentedLibJSONFile = "GENERATED_" + libFile.replace(/.js$/, "_instrumented.json");
     }
 
     function allBenchmarks() {

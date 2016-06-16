@@ -2,7 +2,7 @@
   var fs = require('fs');
   var path = require('path');
   var temp = require('temp');
-  var jalangi = require("./jalangiRuntime/jalangi/src/js/utils/api.js");
+  var jalangi = require("./jalangiRuntime/jalangi2/src/js/utils/api.js");
 
   function preProcess(code, readfile, writefile, jsonfile) {
   	readfile = getpath(readfile);

@@ -15,10 +15,10 @@
 
     function addNewExecutionResult(result) {
         var project = result.setup.project;
-        console.log("ResultsDataBase: Received a new execution result for " + project);
+        console.log("ResultsDataBase: Received a new execution result: " + project + " - " + result.setup.executionMode + " - " + result.setup.analysis + " - " + result.setup.commit);
         var dirName = getOrCreateDirForProject(project);
         var fileName = "execution_" + result.setup.executionMode + "_" + result.setup.analysis + "_" + result.setup.commit + ".json";
-        result.simplifiedWarnings = simplifyDLintWarnings(result.warnings);
+        result.simplifiedWarnings = simplifyWarnings(result.warnings);
         fs.writeFileSync(dirName + "/" + fileName, JSON.stringify(result, 0, 2));
     }
 
@@ -32,7 +32,7 @@
         return dirName;
     }
 
-    function simplifyDLintWarnings(warnings) {
+    function simplifyWarnings(warnings) {
         var simplifiedWarnings = [];
         for (var i = 0; i < warnings.length; i++) {
             var warning = warnings[i];
@@ -49,18 +49,18 @@
     function addNewUnchangedLinesResult(project, commit1, commit2, unchangedLines) {
         console.log("ResultsDataBase: Adding a new result about unchanged lines for " + project);
         var dirName = getOrCreateDirForProject(project);
-        var fileName = "unchangedLines_" + commit1+ "_" + commit2 + ".json";
+        var fileName = "unchangedLines_" + commit1 + "_" + commit2 + ".json";
         var results = {
-            unchangedLines: unchangedLines,
-            timeStamp: new Date().toString()
+            unchangedLines:unchangedLines,
+            timeStamp:new Date().toString()
         };
-        fs.writeFileSync(dirName+"/"+fileName, JSON.stringify(unchangedLines));
+        fs.writeFileSync(dirName + "/" + fileName, JSON.stringify(unchangedLines));
     }
 
     function loadAllResults() {
         var results = {
-            executionResults: [],
-            unchangedLinesResults: []
+            executionResults:[],
+            unchangedLinesResults:[]
         };
         return results;
     }
