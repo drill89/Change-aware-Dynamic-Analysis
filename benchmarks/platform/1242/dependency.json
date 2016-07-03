@@ -1,0 +1,129 @@
+{
+    "platform.js_1537": [
+        "platform.js_2001",
+        "platform.js_6849"
+    ],
+    "platform.js_1841": [
+        "platform.js_2153"
+    ],
+    "platform.js_2001": [
+        "platform.js_2889",
+        "platform.js_737",
+        "platform.js_1537",
+        "platform.js_19049",
+        "platform.js_7713"
+    ],
+    "platform.js_2153": [],
+    "platform.js_2297": [
+        "platform.js_737",
+        "platform.js_19049"
+    ],
+    "platform.js_2785": [
+        "platform.js_1841",
+        "platform.js_2705",
+        "platform.js_6041",
+        "platform.js_6329",
+        "platform.js_6577",
+        "platform.js_6921",
+        "platform.js_7785",
+        "platform.js_8001"
+    ],
+    "platform.js_2705": [
+        "platform.js_2785"
+    ],
+    "platform.js_19049": [
+        "platform.js_2297",
+        "platform.js_6041",
+        "platform.js_6577",
+        "platform.js_7785",
+        "platform.js_6329",
+        "platform.js_6921",
+        "platform.js_8001",
+        "platform.js_2577",
+        "platform.js_2473",
+        "platform.js_2001",
+        "platform.js_2889",
+        "platform.js_19529",
+        "platform.js_19745",
+        "platform.js_5977",
+        "platform.js_6257",
+        "platform.js_6513",
+        "platform.js_6849",
+        "platform.js_7713",
+        "platform.js_7937",
+        "platform.js_17753",
+        "platform.js_8065"
+    ],
+    "platform.js_6041": [
+        "platform.js_2785",
+        "platform.js_19049"
+    ],
+    "platform.js_5977": [
+        "platform.js_2577"
+    ],
+    "platform.js_6329": [
+        "platform.js_2785",
+        "platform.js_19049"
+    ],
+    "platform.js_6257": [
+        "platform.js_2577"
+    ],
+    "platform.js_6577": [
+        "platform.js_2785",
+        "platform.js_19049"
+    ],
+    "platform.js_6513": [
+        "platform.js_2577"
+    ],
+    "platform.js_6921": [
+        "platform.js_2785",
+        "platform.js_19049"
+    ],
+    "platform.js_6849": [
+        "platform.js_2577",
+        "platform.js_1537"
+    ],
+    "platform.js_7785": [
+        "platform.js_2785",
+        "platform.js_19049"
+    ],
+    "platform.js_7713": [
+        "platform.js_2577",
+        "platform.js_2001"
+    ],
+    "platform.js_8001": [
+        "platform.js_2785",
+        "platform.js_19049"
+    ],
+    "platform.js_19529": [
+        "platform.js_19049"
+    ],
+    "platform.js_19745": [
+        "platform.js_2153",
+        "platform.js_19049",
+        "platform.js_19649",
+        "platform.js_1841",
+        "platform.js_2297"
+    ],
+    "platform.js_737": [
+        "platform.js_2001",
+        "platform.js_2297"
+    ],
+    "platform.js_2889": [
+        "platform.js_2001",
+        "platform.js_19049"
+    ],
+    "platform.js_2473": [
+        "platform.js_19049"
+    ],
+    "platform.js_2577": [
+        "platform.js_19049",
+        "platform.js_5977",
+        "platform.js_6257",
+        "platform.js_6513",
+        "platform.js_6849",
+        "platform.js_7713"
+    ],
+    "platform.js_17753": [],
+    "platform.js_19649": []
+}

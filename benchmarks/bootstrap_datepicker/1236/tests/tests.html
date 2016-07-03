@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="tests/assets/qunit.css" />
+<!-- PREALL -->
+
+<!-- CHANGEAWARE -->
+        <script src="tests/assets/qunit.js"></script>
+        <!-- console.log for test failures: enable locally if you need extra debug info-->
+        <!--<script src="assets/qunit-logging.js"></script>-->
+        <script src="tests/assets/jquery-1.7.1.min.js"></script>
+<!-- LIB -->
+        <!-- This locale is included to test usage of titleFormat when available: see tests/suites/options.js -->
+        <script src="js/locales/bootstrap-datepicker.zh-CN.js"></script>
+
+        <style>
+            .datepicker {
+                /* Appended to body, abs-pos off the page */
+                position: absolute;
+                display: none;
+                top: -9999em;
+                left: -9999em;
+            }
+        </style>
+
+        <!-- Utilities -->
+        <script src="tests/assets/utils.js"></script>
+        <script src="tests/assets/mock.js"></script>
+
+        <!-- Test suites -->
+        <script src="tests/suites/formats.js"></script>
+        <script src="tests/suites/mouse_navigation/all.js"></script>
+        <script src="tests/suites/mouse_navigation/2012.js"></script>
+        <script src="tests/suites/mouse_navigation/2011.js"></script>
+        <script src="tests/suites/keyboard_navigation/all.js"></script>
+        <script src="tests/suites/keyboard_navigation/2012.js"></script>
+        <script src="tests/suites/keyboard_navigation/2011.js"></script>
+        <script src="tests/suites/component.js"></script>
+        <script src="tests/suites/events.js"></script>
+        <script src="tests/suites/options.js"></script>
+        <script src="tests/suites/inline.js"></script>
+        <script src="tests/suites/calendar-weeks.js"></script>
+        <script src="tests/suites/data-api.js"></script>
+        <script src="tests/suites/noconflict.js"></script>
+        <script src="tests/suites/methods.js"></script>
+        <script src="tests/suites/methods_jquery.js"></script>
+<!-- POSTTESTS -->
+    </head>
+    <body>
+        <h1 id="qunit-header">bootstrap-datepicker</h1>
+        <h2 id="qunit-banner"></h2>
+        <div id="qunit-testrunner-toolbar"></div>
+        <h2 id="qunit-userAgent"></h2>
+        <ol id="qunit-tests"></ol>
+        <div id="qunit-fixture"></div>
+
+<h3>Analysis Results:</h3>
+
+  <table border = "1">
+    <tr>
+      <td colspan = "3">
+        <pre id="res"> </pre>
+      </td>
+    </tr>
+  </table>
+    </body>
+</html>

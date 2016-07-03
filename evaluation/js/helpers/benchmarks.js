@@ -5,13 +5,14 @@
     var baseDir = require("process").cwd();
     var fs = require("fs");
 
-    function Benchmark(name, commits, indexTemplate, libFile) {
+    function Benchmark(name, commits, indexTemplate, libFile, mapper) {
         this.name = name;
         this.commits = commits;
         this.indexTemplate = indexTemplate;
         this.libFile = libFile;
         this.instrumentedLibFile = "GENERATED_" + libFile.replace(/.js$/, "_instrumented.js");
         this.instrumentedLibJSONFile = "GENERATED_" + libFile.replace(/.js$/, "_instrumented.json");
+        this.mapper = mapper;
     }
 
     function allBenchmarks() {
@@ -33,7 +34,7 @@
             var rawBenchmarkInfo = fs.readFileSync(benchmarkDir + "/benchmark.json", {encoding:"utf8"});
             var benchmarkInfo = JSON.parse(rawBenchmarkInfo);
 
-            result.push(new Benchmark(benchmark, commits, benchmarkInfo.indexTemplate, benchmarkInfo.libFile));
+            result.push(new Benchmark(benchmark, commits, benchmarkInfo.indexTemplate, benchmarkInfo.libFile, benchmarkInfo.mapper));
         }
 
         return result;

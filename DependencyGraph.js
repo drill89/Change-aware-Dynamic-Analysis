@@ -1,5 +1,4 @@
-exports.getDependency = function(file, lines, insfile) {
-  console.time("Dependency");
+exports.getDependency = function(file, output, lines, insfile) {
   var fs = require("fs");
   var ternModule = require("tern");
   var tern = new ternModule.Server({});
@@ -7,9 +6,7 @@ exports.getDependency = function(file, lines, insfile) {
   var acorn = require("acorn");
   var _ = require("underscore");
 
-  //var file = "./tests/underscore_new.js";
   var filename = file.match(/[^\\/]+\.[^\\/]+$/)[0];
-  //console.log(filename);
 
   //read the instrumented source file to calculate the IIDs of every function
   var jsonfile = fs.readFileSync(insfile);
@@ -17,7 +14,7 @@ exports.getDependency = function(file, lines, insfile) {
 
   var code = fs.readFileSync(file);
   var data = acorn.parse(code,{locations: true});
-//  fs.writeFileSync("./output/dup_ast.json",JSON.stringify(data, null, 4));
+//  fs.writeFileSync("./jalangiRuntime/output/dup_ast.json",JSON.stringify(data, null, 4));
 
   var funcCount = 0; //total number of functions in a program
   var storeFunctions = {};//startline, endline, startchar, endchar for each function
@@ -35,7 +32,6 @@ exports.getDependency = function(file, lines, insfile) {
   var enclFunc = []; //enclosing functions of the changed function
   var functionImpactSet = [];//functions that has been affected due to modifications in other function
   var IIDImpactSet = [];//IIDs of the function in the impact set
-  //var lines = [96,507,595,625,638,655,710,726,962,994,995,1030,1061,1065,1188,1319,1423];
 
   // parse and analyze files
   tern.addFile(filename, fs.readFileSync(file));
@@ -46,7 +42,6 @@ exports.getDependency = function(file, lines, insfile) {
       switch(node.type) {
         case 'Program':
             functionsList.push(filename+"_Script");
-            //console.log("Pushing: Script");
           break;
 
         case 'FunctionExpression':
@@ -89,7 +84,6 @@ exports.getDependency = function(file, lines, insfile) {
                   break;
               }
               else {
-//                  console.log("variable "+node.id.name+" start and end is:"+node.id.start+" "+node.id.end);
                     varPropComputations(node.id.start, node.id.end);
                     varPropDefn.push(node.id.end);
               }
@@ -99,7 +93,6 @@ exports.getDependency = function(file, lines, insfile) {
         case 'ObjectExpression':
               for(var j=0; j<node.properties.length; j++) {
                   if(node.properties[j].value.type != 'FunctionExpression'){
-//                        console.log("property "+node.properties[j].key.name+" start and end is:"+node.properties[j].key.start+" "+node.properties[j].key.end);
                         varPropComputations(node.properties[j].key.start, node.properties[j].key.end);
                         varPropDefn.push(node.properties[j].key.end);
                   }
@@ -111,7 +104,6 @@ exports.getDependency = function(file, lines, insfile) {
         case 'AssignmentExpression':
               if(node.right.type != 'FunctionExpression' && node.right.type != 'ObjectExpression'){
                 if(node.left.type === 'MemberExpression'){
-//                    console.log("assignment left "+node.left.property.name+" start and end is:"+node.left.property.start+" "+node.left.property.end);
                     if(node.left.property.name === 'prototype') break;
                     else {
                         varPropComputations(node.left.property.start, node.left.property.end);
@@ -120,7 +112,6 @@ exports.getDependency = function(file, lines, insfile) {
                     
                 }
                 else{
-//                    console.log("assignment left "+node.left.name+" start and end is:"+node.left.start+" "+node.left.end);
                     varPropComputations(node.left.start, node.left.end);
                     varPropDefn.push(node.left.end);
                 }
@@ -133,17 +124,14 @@ exports.getDependency = function(file, lines, insfile) {
       switch (node.type) {
         case 'FunctionExpression':
               var c = functionsList.pop();
-              //console.log("Popped function: "+c);
               break;
 
           case 'FunctionDeclaration':
               var c = functionsList.pop();
-              //console.log("Popped function: "+c);
               break;
 
           case 'Program':
               var c = functionsList.pop();
-              //console.log("Popped: "+c);
               break;
       }
     }
@@ -163,7 +151,6 @@ exports.getDependency = function(file, lines, insfile) {
 //    callees.push(id);
     functionsList.push(id);
     functoIID[id] = iid;
-    //console.log("Pushing function definition: "+id);
     //start and end lines of each function
     if(!(storeFunctions.hasOwnProperty(id))) {
         storeFunctions[id] = [o[0], o[2], c[0], c[1]];
@@ -182,7 +169,6 @@ exports.getDependency = function(file, lines, insfile) {
 
     function callExpressionComputations(s, e) {
         var query, callid, func, calls;
-//        console.log("Start: "+s+" End: "+e);
         func = functionsList[functionsList.length - 1];
         query = { 
                     query:{type:"definition", end:e, start: s, file:filename}
@@ -228,7 +214,6 @@ exports.getDependency = function(file, lines, insfile) {
     
     function functionDependencyGraph() {
         var arr, d, query;
-//        console.log("Functions containing return functions are: "+retFunc);
         //functions which reads the values returned from other functions
         for(var c in callExpr) {
             arr = callExpr[c];
@@ -243,15 +228,12 @@ exports.getDependency = function(file, lines, insfile) {
                 }
             }
         }
-        
-//        console.log("varpropdefns is: "+varPropDefn);
-//        console.log("Varproprefs is: "+JSON.stringify(varPropRefs, null, 4));
+
         //variable and property dependencies
         var a, v, ret, callees;
         for(var c in varPropRefs) {
             a = varPropRefs[c];
             a = _.difference(a, varPropDefn);
-//            console.log(c+": [ "+a+" ]");
             for(var i=0; i<a.length; i++) {
                 for(var k in storeFunctions) {
                     v = storeFunctions[k];
@@ -267,16 +249,13 @@ exports.getDependency = function(file, lines, insfile) {
                 if(ret != c && callees.indexOf(ret) == -1)
                     callees.push(ret);
             }
-//            console.log(c+": [ "+a+" ]");
             varPropRefs[c] = _.uniq(a);
         }
-//        console.log("Varproprefs is: "+JSON.stringify(varPropRefs, null, 4));
     }
     
     function varPropComputations(s, e) {
         var query, calls;
         lastfunc = functionsList[functionsList.length - 1];
-//        console.log("Last function is:"+lastfunc);
         query = { 
                     query:{type:"refs", end:e, start: s, file:filename}
                     //lineCharPositions: true
@@ -284,7 +263,6 @@ exports.getDependency = function(file, lines, insfile) {
         //querying tern server requesting for the offset of the variable/property referenced in other functions
         tern.request(query, function(err, da) {
             if(da) {
-//                console.log("references are: "+JSON.stringify(da, null, 4));
                 for(var i=0; i<da.refs.length; i++) {
                     if(!(varPropRefs.hasOwnProperty(lastfunc))) {
                         varPropRefs[lastfunc] = [];
@@ -295,13 +273,10 @@ exports.getDependency = function(file, lines, insfile) {
                 }
             }
         });
-//        console.log(lastfunc+ " : ["+calls+"]");
     }
     
-    fs.writeFileSync("./output/dependency.json",JSON.stringify(CallertoCallee, null, 4));
-    console.timeEnd("Dependency");
-    
-    console.time("ImpactSet");
+    fs.writeFileSync(output+"/dependency.json",JSON.stringify(CallertoCallee, null, 4));
+
     getChangedFunction();
     
     function getChangedFunction() {
@@ -318,7 +293,6 @@ exports.getDependency = function(file, lines, insfile) {
                 changedFunctions.push(ret);
         }
     }
-    //console.log(changedFunctions);
     
     functionImpactSet = changedFunctions;
     getImpactSet();
@@ -340,7 +314,6 @@ exports.getDependency = function(file, lines, insfile) {
                 functionImpactSet.push(enclFunc[i]);
         }
     }
-    //console.log(functionImpactSet);
     
     getIIDs();
     
@@ -350,17 +323,8 @@ exports.getDependency = function(file, lines, insfile) {
             IIDImpactSet.push(id);
         }
     }
-    //console.log(IIDImpactSet);
-    
-    console.log("Total number of functions: "+funcCount);
-    console.log("No of Impact functions are: "+functionImpactSet.length);
 
-  fs.writeFileSync("./output/impactset.json",JSON.stringify(IIDImpactSet, null, 4));
-  console.timeEnd("ImpactSet");
-  fs.writeFileSync("./output/storeFunctions.json",JSON.stringify(storeFunctions, null, 4));
-  //fs.writeFileSync("./output/callExpr.json",JSON.stringify(callExpr, null, 4));
-  //fs.writeFileSync("./output/functiondependency.json",JSON.stringify(functionDependency, null, 4));
-  //fs.writeFileSync("./output/varPropRefs.json",JSON.stringify(varPropRefs, null, 4));
-  //console.timeEnd("Dependency");
-  //return IIDImpactSet;
+    fs.writeFileSync(output+"/impactset.json",JSON.stringify(IIDImpactSet, null, 4));
+    fs.writeFileSync(output+"/storeFunctions.json",JSON.stringify(storeFunctions, null, 4));
+    return {totFunc: funcCount, impFunc: functionImpactSet.length};
 }

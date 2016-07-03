@@ -1,4 +1,5 @@
 {
   "indexTemplate": "index_template.html",
-  "libFile": "library.js"
+  "libFile": "library.js",
+  "mapper": {"1234": "abc", "1235": "def", "1236": "efg", "1237": "ghi"}
 }

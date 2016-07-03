@@ -14,19 +14,23 @@
     }
 
     function addNewExecutionResult(result) {
-        var project = result.setup.project;
-        console.log("ResultsDataBase: Received a new execution result: " + project + " - " + result.setup.executionMode + " - " + result.setup.analysis + " - " + result.setup.commit);
+        var project = result.executionDetails.libraryName;
+        console.log("ResultsDataBase: Received a new execution result: " + project + " - " + result.executionDetails.analysisMode + " - " + result.executionDetails.analysisType + " - " + result.executionDetails.commitNumber);
+        
         var dirName = getOrCreateDirForProject(project);
-        var fileName = "execution_" + result.setup.executionMode + "_" + result.setup.analysis + "_" + result.setup.commit + ".json";
-        result.simplifiedWarnings = simplifyWarnings(result.warnings);
+        var fileName = "execution_" + result.executionDetails.analysisMode + "_" + result.executionDetails.analysisType + "_" + result.executionDetails.commitNumber+".json";
+        if(result.warnings)
+            result.simplifiedWarnings = simplifyWarnings(result.warnings);
         fs.writeFileSync(dirName + "/" + fileName, JSON.stringify(result, 0, 2));
     }
 
     function getOrCreateDirForProject(project) {
         var dirName = resultsBaseDir + "/" + project;
         try {
+//            fs.accessSync(resultsBaseDir, fs.F_OK);
             fs.accessSync(dirName, fs.F_OK);
         } catch (e) {
+//            fs.mkdirSync(resultsBaseDir);
             fs.mkdirSync(dirName);
         }
         return dirName;

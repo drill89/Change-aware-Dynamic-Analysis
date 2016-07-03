@@ -6,6 +6,7 @@
     var benchmarkPreparer = require("./helpers/benchmarkPreparer");
     var inBrowserExperiments = require("./experiments/inBrowserExperiments");
     var evalServer = require("./helpers/evalServer");
+    var resultSummarizer = require("./summarizeAllResults");
 
     // read all benchmarks
     var allBenchmarks = benchmarks.allBenchmarks();
@@ -16,7 +17,7 @@
         var benchmark = allBenchmarks[i];
         benchmarkPreparer.createHTMLFiles(benchmark);
         benchmarkPreparer.createJSFiles(benchmark);
-        benchmarkPreparer.instrumentLib(benchmark);
+        benchmark.instTime = benchmarkPreparer.instrumentLib(benchmark);
         benchmarkPreparer.linkToJalangi(benchmark);
     }
 
@@ -39,6 +40,11 @@
     // called once all experiments have run
     function cleanUp() {
         evalServer.close();
+        for(var i = 0; i< allBenchmarks.length; i++) {
+            //generate CSV files for benchmark
+            console.log("Generating CSV files for:"+allBenchmarks[i].name+ " having commits:"+allBenchmarks[i].commits);
+            resultSummarizer.summarizeResults(allBenchmarks[i].name, allBenchmarks[i].commits);
+        }
         console.log("Cleaned up. Done.");
     }
 
@@ -61,6 +67,5 @@
 
     // start all scheduled experiments
     runNextExperiment();
-
 
 })();

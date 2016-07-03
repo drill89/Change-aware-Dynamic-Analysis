@@ -12,6 +12,7 @@
     var dlintFragment = fs.readFileSync(fragmentDir + "/dlint.html");
     var jitprofFragment = fs.readFileSync(fragmentDir + "/jitprof.html");
     var finalizeFragment = fs.readFileSync(fragmentDir + "/finalize.html");
+    var changeawareFragment = fs.readFileSync(fragmentDir + "/changeaware.html");
 
     function createHTMLFiles(benchmark) {
         for (var i = 0; i < benchmark.commits.length; i++) {
@@ -44,6 +45,7 @@
             var jsChangeAwareDLint = "<script src='GENERATED_js/evalClient_changeAwareAnalysis_dlint.js'></script>";
             var indexChangeAwareDLint = template
                   .replace("<!-- PREALL -->", jqueryFragment + "\n\n" + jsChangeAwareDLint + "\n\n" + jalangiFragment + "\n\n" + dlintFragment)
+                  .replace("<!-- CHANGEAWARE -->", changeawareFragment)  
                   .replace("<!-- LIB -->", "<script src='" + benchmark.instrumentedLibFile + "'></script>")
                   .replace("<!-- POSTTESTS -->", finalizeFragment);
             fs.writeFileSync(dir + "/GENERATED_index_changeAwareAnalysis_dlint.html", indexChangeAwareDLint);
@@ -52,6 +54,7 @@
             var jsChangeAwareJITProf = "<script src='GENERATED_js/evalClient_changeAwareAnalysis_jitprof.js'></script>";
             var indexChangeAwareJITProf = template
                   .replace("<!-- PREALL -->", jqueryFragment + "\n\n" + jsChangeAwareJITProf + "\n\n" + jalangiFragment + "\n\n" + jitprofFragment)
+                  .replace("<!-- CHANGEAWARE -->", changeawareFragment)  
                   .replace("<!-- LIB -->", "<script src='" + benchmark.instrumentedLibFile + "'></script>")
                   .replace("<!-- POSTTESTS -->", finalizeFragment);
             fs.writeFileSync(dir + "/GENERATED_index_changeAwareAnalysis_jitprof.html", indexChangeAwareJITProf);
@@ -90,6 +93,7 @@
     }
 
     function instrumentLib(benchmark) {
+        var t1, t2, t3 = 0 ; 
         for (var i = 0; i < benchmark.commits.length; i++) {
             var commit = benchmark.commits[i];
             var dir = baseDir + "/benchmarks/" + benchmark.name + "/" + commit;
@@ -98,8 +102,12 @@
             var instrumentedLibJSONPath = dir + "/" + benchmark.instrumentedLibJSONFile;
 
             var originalCode = fs.readFileSync(libPath, "utf8");
+            t1 = Date.now();
             instrumenter.preProcess(originalCode, libPath, instrumentedLibPath, instrumentedLibJSONPath);
+            t2 = Date.now() - t1;
+            t3 += t2;
         }
+        return t3/benchmark.commits.length;
     }
 
     function linkToJalangi(benchmark) {
