@@ -28,8 +28,8 @@
                     if (oldFileRange[1]-oldFileRange[0] !== newFileRange[1]-newFileRange[0]) {
                         throw "Unexpected line ranges returned by diff: " + oldFileRange + " and " + newFileRange;
                     }
-                    var newFileLine = newFileRange[0];
-                    for (var oldFileLine = oldFileRange[0]; oldFileLine <= oldFileRange[1]; newFileLine++, oldFileLine++) {
+                    var newFileLine = Number(newFileRange[0]);
+                    for (var oldFileLine = Number(oldFileRange[0]); oldFileLine <= Number(oldFileRange[1]); newFileLine++, oldFileLine++) {
                         oldLineToNewLine[oldFileLine] = newFileLine;
                     }
                 }
