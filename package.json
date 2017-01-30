@@ -1,0 +1,35 @@
+{
+  "name": "cada",
+  "version": "1.0.0",
+  "description": "A change aware dynamic analysis tool for JavaScript",
+  "main": "/evaluation/js/runAllExperiments.js",
+  "dependencies": {
+    "esprima": "^2.7.2",
+    "estraverse": "^4.1.1",
+    "exec-sync": "^0.1.6",
+    "express": "^4.13.4",
+    "masonry-layout": "^4.1.0",
+    "temp": "^0.8.1",
+    "underscore": "^1.8.3",
+    "sweetalert": "^1.1.3",
+    "shelljs": "^0.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/drill89/Change-aware-Dynamic-Analysis.git"
+  },
+  "keywords": [
+    "cada"
+  ],
+  "author": "Dileep R K, Dr. Michael Pradel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/drill89/Change-aware-Dynamic-Analysis/issues"
+  },
+  "homepage": "https://github.com/drill89/Change-aware-Dynamic-Analysis#readme"
+}

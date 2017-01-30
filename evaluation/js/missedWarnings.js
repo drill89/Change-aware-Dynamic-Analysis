@@ -4,8 +4,8 @@
 
     var baseDir = require("process").cwd();
 
-    var benchmarks = ["backbone", "bootstrap_datepicker", "platform", "underscore"];
-    var commits = ["1234", "1235", "1236", "1237", "1238", "1239", "1240", "1241", "1242", "1243", "1244"];
+    var benchmarks = ["backbone"];
+    var commits = ["1234", "1235", "1236"];
     var analysis = ["dlint", "jitprof"];
     var allMissedWarnings = {};
 

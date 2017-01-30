@@ -9,7 +9,7 @@
     var fs = require('fs');
     var childProcess = require("child_process");
 
-    var dependency = require("./../../../DependencyGraph");
+    var dependency = require("./../../../cadaWOiife");
     var difference = require("./../../../findDiff2");
     var unchangedLines = require("./unchangedLinesAnalyzer");
 

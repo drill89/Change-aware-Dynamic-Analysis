@@ -5,3 +5,7 @@ node_modules
 /evaluation/results/*
 /output/*
 *GENERATED_*
+libraries
+My_lib
+findDiff.js
+server.js
