@@ -3,7 +3,8 @@
 *.swp
 .*
 node_modules
-/evaluation/results/*
 /output/*
 *GENERATED_*
 libraries
+jalangiRuntime/jalangi2
+jalangi2analyses
